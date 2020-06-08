@@ -7,13 +7,13 @@ const User = require('../models/users')
 
 router.get('/', (req, res) => {
   User.find
-  ().exec().then(docs => {
+    ().exec().then(docs => {
       res.status(200).json(docs)
-  }).catch(err => 
+    }).catch(err =>
       res.status(500).json({
-          error: err
+        error: err
       })
-  )
+    )
 })
 
 router.post('/signup', function (req, res) {
@@ -21,7 +21,7 @@ router.post('/signup', function (req, res) {
     .exec()
     .then(user => {
       if (user.length >= 1) {
-        return res.status(409).json({message: 'UserExists'})
+        return res.status(409).json({ message: 'UserExists' })
       }
       bcrypt.hash(req.body.password, 10)
         .then(hash => {
