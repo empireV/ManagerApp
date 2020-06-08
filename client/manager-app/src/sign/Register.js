@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 import axios from 'axios';
-import './Wrap.scss'
+import './Wrap.scss';
 
 export class Register extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            name: null,
-            pass: null
-        }
+
     }
     submit = () => {
         const name = document.getElementById('login').value
@@ -17,8 +14,8 @@ export class Register extends Component {
             .then(res => {
                 console.log(res);
             })
-            .catch(reason => {
-                console.log('ERROR')
+            .catch(err => {
+                console.log(err);
             })
     }
     render() {
