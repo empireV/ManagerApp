@@ -9,15 +9,14 @@ import {
     Redirect
 } from 'react-router-dom';
 import {Header} from "../header/Header";
-import {Login} from "../login/Login";
-import {Register} from "../register/Register";
-
+import {Login} from "../sign/Login";
+import {Register} from "../sign/Register";
 
 function App() {
   return (
     <div className="App">
-      <Header/>
-      <Login/>
+      {/*<Header/>*/}
+      {/*<Login/>*/}
       <Register/>
     </div>
   );
