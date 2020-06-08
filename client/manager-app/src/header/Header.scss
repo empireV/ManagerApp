@@ -1,0 +1,10 @@
+.app-header {
+  width: 100%;
+  border-bottom: 1px solid darkblue;
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px;
+  &-user {
+    margin-right: 20px;
+  }
+}
