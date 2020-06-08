@@ -13,7 +13,7 @@ export class Header extends Component {
     }
     render() {
         return (
-            <div className={`${CN} fixed-top`}>
+            <div className={`${CN}`}>
                 <div className={`${CN}-user`}>
                     name
                 </div>
