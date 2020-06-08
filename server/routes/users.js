@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 const User = require('../models/users')
 
@@ -41,5 +42,36 @@ router.post('/signup', function (req, res) {
       req.res(500).end()
     )
 });
+
+router.post('/login', (req, res) => {
+  User.find({ name: req.body.name })
+    .exec()
+    .then(user => {
+      if (user.length < 1) {
+        return res.status(404).json({msg: 'User doesn\'t exist'})
+      }
+      bcrypt.compare(req.body.password, user[0].password)
+        .then((same) => {
+          if (!same)
+            return res.status(401).json({msg: 'WrongPassword'})
+          const token = jwt.sign(
+            {
+              name: user[0].name,
+              id: user[0]._id,
+            },
+            process.env.JWT_KEY,
+            {
+              expiresIn: "10h"
+            }
+          )
+          res.status(200).json({
+            token: token
+          })
+        })
+        .catch(() =>
+          res.status(500).end()
+        )
+    })
+})
 
 module.exports = router;
