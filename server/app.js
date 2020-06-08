@@ -1,7 +1,12 @@
 var express = require('express');
 var logger = require('morgan');
+const mongoose = require('mongoose')
 
 var usersRouter = require('./routes/users');
+
+let mongoUrl = `mongodb+srv://dbTest:${process.env.MONGO_ATLAS_PSW}@cluster0-xcma5.mongodb.net/${process.env.MONGO_ATLAS_DB_NAME}?retryWrites=true&w=majority`
+mongoose.connect(mongoUrl, {useNewUrlParser: true}).
+    catch(error => console.log(error))
 
 var app = express();
 
