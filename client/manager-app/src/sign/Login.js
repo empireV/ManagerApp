@@ -5,7 +5,7 @@ import './Wrap.scss';
 export class Login extends Component {
     constructor(props) {
         super(props);
-   
+
     }
     submit = () => {
         const name = document.getElementById('login').value
