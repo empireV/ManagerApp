@@ -15,7 +15,7 @@ import {Register} from "../sign/Register";
 function App() {
   return (
     <div className="App">
-      {/*<Header/>*/}
+      <Header/>
       {/*<Login/>*/}
       <Register/>
     </div>
