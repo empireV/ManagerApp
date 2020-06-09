@@ -1,12 +1,17 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import { Link } from "react-router-dom";
 import './Wrap.scss';
 
 export class Login extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            forgot: false
+        }
     }
+
     submit = () => {
         const name = document.getElementById('login').value
         const pass = document.getElementById('password').value
@@ -18,7 +23,13 @@ export class Login extends Component {
                 console.log(err);
             })
     }
+    forgot = () => {
+        this.setState({
+            forgot: !this.state.forgot
+        })
+    }
     render() {
+        const { forgot } = this.state;
         return (
             <div className='wrapper'>
                 <form>
@@ -37,9 +48,16 @@ export class Login extends Component {
                     {/*        <label className="custom-control-label">Remember me</label>*/}
                     {/*    </div>*/}
                     {/*</div>*/}
-                    <button type="button" className="btn btn-primary btn-block" onClick={this.submit}>Sign In</button>
+                    <Link to='/main/'><button type="button" className="btn btn-primary btn-block" onClick={this.submit}>Sign In</button></Link> // temporary
+                    {/*<button type="button" className="btn btn-primary btn-block" onClick={this.submit}>Sign In</button>*/}
                     <p className="forgot-password text-right">
-                        <a href="#">Forgot password?</a>
+                        <a href="#" onClick={this.forgot} >Forgot password?</a>
+                    </p>
+                    {
+                        forgot && <div className='bg-warning text-white text-center'>CONTACT ADMINISTRATOR +(380)123-45-67</div>
+                    }
+                    <p className="forgot-password text-right">
+                        Not registered yet? - <Link to="/register"><b>Sign Up</b></Link>
                     </p>
                 </form>
             </div>
