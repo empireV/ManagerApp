@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import axios from 'axios';
 import './Header.scss';
+import {Link} from "react-router-dom";
 
 const CN = 'app-header'
 export class Header extends Component {
@@ -19,7 +20,7 @@ export class Header extends Component {
                 <div className={`${CN}-user`}>
                     name
                 </div>
-                <button type='button' className={`${CN}-logout btn btn-secondary`} onClick={this.logout}>Log Out</button>
+                <Link to='/login'><button type='button' className={`${CN}-logout btn btn-secondary`} onClick={this.logout}>Log Out</button></Link>
             </div>
         )
     }

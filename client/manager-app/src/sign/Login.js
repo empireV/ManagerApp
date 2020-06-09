@@ -48,13 +48,13 @@ export class Login extends Component {
                     {/*        <label className="custom-control-label">Remember me</label>*/}
                     {/*    </div>*/}
                     {/*</div>*/}
-                    <Link to='/main/'><button type="button" className="btn btn-primary btn-block" onClick={this.submit}>Sign In</button></Link> // temporary
+                    <Link to='/main/'><button type="button" className="btn btn-primary btn-block" onClick={this.submit}>Sign In</button></Link> {/* temporary*/}
                     {/*<button type="button" className="btn btn-primary btn-block" onClick={this.submit}>Sign In</button>*/}
                     <p className="forgot-password text-right">
                         <a href="#" onClick={this.forgot} >Forgot password?</a>
                     </p>
                     {
-                        forgot && <div className='bg-warning text-white text-center'>CONTACT ADMINISTRATOR +(380)123-45-67</div>
+                        forgot && <div className='alert alert-danger text-center'>CONTACT ADMINISTRATOR +(380)123-45-67</div>
                     }
                     <p className="forgot-password text-right">
                         Not registered yet? - <Link to="/register"><b>Sign Up</b></Link>
