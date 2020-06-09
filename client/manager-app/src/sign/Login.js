@@ -10,7 +10,7 @@ export class Login extends Component {
     submit = () => {
         const name = document.getElementById('login').value
         const pass = document.getElementById('password').value
-        axios.post('http://localhost:8081/users/signin', { name:name, password:pass})
+        axios.post('http://localhost:8081/users/login', { name:name, password:pass })
             .then(res => {
                 console.log(res);
             })
