@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './TaskBlock.scss';
+import Accordion from 'react-bootstrap/Accordion'
 import {title} from "../const/const";
+import Card from "react-bootstrap/Card";
 
 export class TaskBlock extends Component {
 
@@ -14,66 +16,40 @@ export class TaskBlock extends Component {
                         <button type="button" className="btn btn-outline-primary ">Add</button>
                     </div>
                     <div className="card-body">
-
-                        <div className="accordion" id="accordionExample">
-
-                            <div className="card">
-                                <div className="card-header" id="headingOne">
-                                    <h2 className="mb-0">
-                                        <button className="btn btn-link btn-block text-left" type="button"
-                                                data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                                                aria-controls="collapseOne">
-                                            label1
-                                        </button>
-                                    </h2>
-                                </div>
-                                <div id="collapseOne" className="collapse show" aria-labelledby="headingOne"
-                                     data-parent="#accordionExample">
-                                    <div className="card-body">
-                                       t1
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="card">
-                                <div className="card-header" id="headingTwo">
-                                    <h2 className="mb-0">
-                                        <button className="btn btn-link btn-block text-left collapsed" type="button"
-                                                data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
-                                                aria-controls="collapseTwo">
-                                            label2
-                                        </button>
-                                    </h2>
-                                </div>
-                                <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo"
-                                     data-parent="#accordionExample">
-                                    <div className="card-body">
-                                        t2
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="card">
-                                <div className="card-header" id="headingThree">
-                                    <h2 className="mb-0">
-                                        <button className="btn btn-link btn-block text-left collapsed" type="button"
-                                                data-toggle="collapse" data-target="#collapseThree"
-                                                aria-expanded="false" aria-controls="collapseThree">
-                                            label3
-                                        </button>
-                                    </h2>
-                                </div>
-                                <div id="collapseThree" className="collapse" aria-labelledby="headingThree"
-                                     data-parent="#accordionExample">
-                                    <div className="card-body">
-                                        t3
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-
+                        <Accordion defaultActiveKey="-1">
+                            <Card>
+                                <Accordion.Toggle as={Card.Header} eventKey="0">
+                                    task1
+                                </Accordion.Toggle>
+                                <Accordion.Collapse eventKey="0">
+                                    <Card.Body>body1</Card.Body>
+                                </Accordion.Collapse>
+                            </Card>
+                            <Card>
+                                <Accordion.Toggle as={Card.Header} eventKey="1">
+                                    task2
+                                </Accordion.Toggle>
+                                <Accordion.Collapse eventKey="1">
+                                    <Card.Body>body2</Card.Body>
+                                </Accordion.Collapse>
+                            </Card>
+                            <Card>
+                                <Accordion.Toggle as={Card.Header} eventKey="2">
+                                    task3
+                                </Accordion.Toggle>
+                                <Accordion.Collapse eventKey="2">
+                                    <Card.Body>body3</Card.Body>
+                                </Accordion.Collapse>
+                            </Card>
+                            <Card>
+                                <Accordion.Toggle as={Card.Header} eventKey="3">
+                                    task4
+                                </Accordion.Toggle>
+                                <Accordion.Collapse eventKey="3">
+                                    <Card.Body>body4</Card.Body>
+                                </Accordion.Collapse>
+                            </Card>
+                        </Accordion>
                     </div>
                 </div>
             </div>
