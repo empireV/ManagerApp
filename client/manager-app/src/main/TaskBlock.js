@@ -3,52 +3,47 @@ import './TaskBlock.scss';
 import Accordion from 'react-bootstrap/Accordion'
 import {title} from "../const/const";
 import Card from "react-bootstrap/Card";
+import {Task} from "./Task";
+
 
 export class TaskBlock extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            i: 0,
+            task: `task`,
+            body: `body`,
+            children: []
+        }
+    }
 
+    createTask = () => {
+        this.setState({
+            i: this.state.i + 1
+        })
+        const accordeon = document.getElementById('acc');
+        this.state.children.push(<Task key={this.state.i} eventKey={this.state.i} task={this.state.task} body={this.state.body}/>)
+        console.log(this.state.i);
+        console.log(this.state.children);
+    }
     render() {
         const {title} = this.props;
+
         return (
             <div>
                 <div className="card border-primary bg-light mb-3">
                     <div className="card-header d-flex justify-content-between align-content-center text-center">
                         <div>{title}</div>
-                        <button type="button" className="btn btn-outline-primary ">Add</button>
+                        {title === 'Backlog' && <button type="button" className="btn btn-outline-primary" onClick={this.createTask}>Add</button>}
                     </div>
                     <div className="card-body">
-                        <Accordion defaultActiveKey="-1">
-                            <Card>
-                                <Accordion.Toggle as={Card.Header} eventKey="0">
-                                    task1
-                                </Accordion.Toggle>
-                                <Accordion.Collapse eventKey="0">
-                                    <Card.Body>body1</Card.Body>
-                                </Accordion.Collapse>
-                            </Card>
-                            <Card>
-                                <Accordion.Toggle as={Card.Header} eventKey="1">
-                                    task2
-                                </Accordion.Toggle>
-                                <Accordion.Collapse eventKey="1">
-                                    <Card.Body>body2</Card.Body>
-                                </Accordion.Collapse>
-                            </Card>
-                            <Card>
-                                <Accordion.Toggle as={Card.Header} eventKey="2">
-                                    task3
-                                </Accordion.Toggle>
-                                <Accordion.Collapse eventKey="2">
-                                    <Card.Body>body3</Card.Body>
-                                </Accordion.Collapse>
-                            </Card>
-                            <Card>
-                                <Accordion.Toggle as={Card.Header} eventKey="3">
-                                    task4
-                                </Accordion.Toggle>
-                                <Accordion.Collapse eventKey="3">
-                                    <Card.Body>body4</Card.Body>
-                                </Accordion.Collapse>
-                            </Card>
+                        <Accordion id='acc' defaultActiveKey="-1">
+                            {
+                                this.state.children.map(value => {
+                                    return value
+                                })
+                            }
+
                         </Accordion>
                     </div>
                 </div>
