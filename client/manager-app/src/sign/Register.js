@@ -2,11 +2,15 @@ import React, { Component } from "react";
 import axios from 'axios';
 import './Wrap.scss';
 import {Link} from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import {register} from "../serviceWorker";
 
 export class Register extends Component {
     constructor(props) {
         super(props);
-
+        this.state = {
+            registered: null
+        }
     }
     submit = () => {
         const name = document.getElementById('login').value
@@ -14,17 +18,31 @@ export class Register extends Component {
         axios.post('http://localhost:8081/users/signup', { name:name, password:pass})
             .then(res => {
                 console.log(res);
+                this.setState({
+                    registered: true
+                })
             })
             .catch(err => {
                 console.log(err);
+                this.setState({
+                    registered: false
+                })
             })
+        // axios.get('http://localhost:8081/projects/id')
     }
     render() {
+        const { registered } = this.state
+        if(this.state.registered === true) {
+            return <Redirect to="/main"/>;
+        }
         return (
             <div className='wrapper'>
                 <form>
                     <h3>Register</h3>
                     <div className="form-group">
+                        {
+                            registered === false && <div className='alert alert-danger text-center'>User already exists</div>
+                        }
                         <label>Login</label>
                         <input type="text" id='login' className="form-control" placeholder="Enter login" />
                     </div>

@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import './Wrap.scss';
 
 export class Login extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
-            forgot: false
+            forgot: false,
+            logged: null
         }
     }
 
@@ -18,9 +18,15 @@ export class Login extends Component {
         axios.post('http://localhost:8081/users/login', { name:name, password:pass })
             .then(res => {
                 console.log(res);
+                this.setState({
+                    logged: true
+                })
             })
             .catch(err => {
                 console.log(err);
+                this.setState({
+                    logged: false
+                })
             })
     }
     forgot = () => {
@@ -29,12 +35,18 @@ export class Login extends Component {
         })
     }
     render() {
-        const { forgot } = this.state;
+        const { forgot, logged } = this.state;
+        if(this.state.logged === true) {
+            return <Redirect to="/main"/>;
+        }
         return (
             <div className='wrapper'>
                 <form>
                     <h3>Login</h3>
                     <div className="form-group">
+                        {
+                         logged === false && <div className='alert alert-danger text-center'>User does not exist</div>
+                        }
                         <label>Login</label>
                         <input type="text" id='login' className="form-control" placeholder="Enter login" />
                     </div>
@@ -42,14 +54,8 @@ export class Login extends Component {
                         <label>Password</label>
                         <input type="password" id='password' className="form-control" placeholder="Enter password" />
                     </div>
-                    {/*<div className="form-group">*/}
-                    {/*    <div className="custom-control custom-checkbox">*/}
-                    {/*        <input type="checkbox" className="custom-control-input" id="remember" />*/}
-                    {/*        <label className="custom-control-label">Remember me</label>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-                    <Link to='/main/'><button type="button" className="btn btn-primary btn-block" onClick={this.submit}>Sign In</button></Link> {/* temporary*/}
-                    {/*<button type="button" className="btn btn-primary btn-block" onClick={this.submit}>Sign In</button>*/}
+                    {/*<Link to='/main/'><button type="button" className="btn btn-primary btn-block" onClick={this.submit}>Sign In</button></Link> /!* temporary*!/*/}
+                    <button type="button" className="btn btn-primary btn-block" onClick={this.submit}>Sign In</button>
                     <p className="forgot-password text-right">
                         <a href="#" onClick={this.forgot} >Forgot password?</a>
                     </p>

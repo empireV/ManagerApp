@@ -5,6 +5,7 @@ import './Main.scss';
 
 
 export class Main extends Component {
+    // loaddata()
     render() {
         return (
             <div className='container-fluid'>
