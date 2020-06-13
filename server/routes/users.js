@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const User = require('../models/users')
+const Project = require('../models/project');
 
 router.get('/', (req, res) => {
   User.find
@@ -16,6 +17,10 @@ router.get('/', (req, res) => {
     )
 })
 
+router.delete('/', () => {
+  User.deleteMany().exec()
+})
+
 router.post('/signup', function (req, res) {
   User.find({ name: req.body.name })
     .exec()
@@ -25,15 +30,19 @@ router.post('/signup', function (req, res) {
       }
       bcrypt.hash(req.body.password, 10)
         .then(hash => {
-          let user = new User({
-            name: req.body.name,
-            password: hash,
-          })
-          user.save().then(
-            () => res.status(200).end()
-          ).catch(
-            () => res.status(500).end()
-          )
+          Project.create({ name: '', taskLists: [[], [], [], []] })
+          .then((project) => {
+            console.log(project)
+            let user = new User({
+              name: req.body.name,
+              password: hash,
+              project: project._id
+            })
+            user.save().then(
+              () => res.status(200).end()
+            ).catch(
+              () => res.status(500).end()
+            )
         })
         .catch(() =>
           res.status(500).end()
@@ -41,10 +50,11 @@ router.post('/signup', function (req, res) {
     }).catch(() =>
       req.res(500).end()
     )
+  })
 });
 
 router.post('/login', (req, res) => {
-  User.find({ name: req.body.name })
+  User.find({ name: req.body.name }).populate('projects')
     .exec()
     .then(user => {
       if (user.length < 1) {

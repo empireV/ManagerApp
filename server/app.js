@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 
 var usersRouter = require('./routes/users');
+var projectsRouter = require('./routes/projects')
 
 let mongoUrl = `mongodb+srv://dbTest:${process.env.MONGO_ATLAS_PSW}@cluster0-xcma5.mongodb.net/${process.env.MONGO_ATLAS_DB_NAME}?retryWrites=true&w=majority`
 mongoose.connect(mongoUrl, {useNewUrlParser: true}).
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/users', usersRouter);
+app.use('/projects', projectsRouter)
 
 var listener = app.listen(process.env.PORT || 8081, 
     () => console.log(`Server start on port ${listener.address().port} ...`))
