@@ -33,7 +33,7 @@ export default new Vuex.Store({
   actions: {
     async login(ctx, { name, password }) {
       try {
-        const data = (await axios.post('/login', { name, password })).data
+        const data = (await axios.post('/users/login', { name, password })).data
         
         localStorage.setItem('token', data.token)
         axios.defaults.headers.common.Authorization = data.token
@@ -50,7 +50,7 @@ export default new Vuex.Store({
     },
     async signup(ctx, user) {
       try {
-        await axios.post('/auth/signup', user)
+        await axios.post('/users/signup', user)
       } catch (err) {
         if (err.response && err.response.status === 409) {
           throw Error('Email already in use')
