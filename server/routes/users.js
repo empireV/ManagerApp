@@ -54,7 +54,7 @@ router.post('/signup', function (req, res) {
 });
 
 router.post('/login', (req, res) => {
-  User.find({ name: req.body.name }).populate('projects')
+  User.find({ name: req.body.name })
     .exec()
     .then(user => {
       if (user.length < 1) {
@@ -68,6 +68,7 @@ router.post('/login', (req, res) => {
             {
               name: user[0].name,
               id: user[0]._id,
+              project: user[0].project
             },
             process.env.JWT_KEY,
             {
