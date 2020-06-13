@@ -7,7 +7,7 @@
               <div class="card">
                 <div class="card-header">
                   <p class="card-header-title">
-                    Signup
+                    Login
                   </p>
                 </div>
                 <form @submit.prevent="submit" class="card-content">
@@ -21,7 +21,7 @@
                   </b-field>
                   <hr>
                   <b-field class="field" grouped>
-                    <b-button class="control is-black" @click="login">Submit</b-button>
+                    <b-button class="control is-black" @click="login">Login</b-button>
                   </b-field>
                  </form>
               </div>
@@ -34,7 +34,7 @@
 
 <script>
 export default {
-  name: 'Signup',
+  name: 'Login',
   props: {
   },
   data: function() {
@@ -46,14 +46,7 @@ export default {
   methods: {
     async login () {
         try {
-          await this.$store.dispatch('signup', { name: this.name, password: this.password })
-          this.$buefy.toast.open({
-            duration: 2000,
-            message: 'Succesful',
-            position: 'is-top',
-            type: 'is-success'
-          })
-          this.$router.push('/login')
+          await this.$store.dispatch('login', { name: this.name, password: this.password })
         } catch (e) {
           this.$buefy.toast.open({
             duration: 2000,
