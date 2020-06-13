@@ -76,7 +76,12 @@ router.post('/login', (req, res) => {
             }
           )
           res.status(200).json({
-            token: token
+            token: token,
+            user: {
+              name: user[0].name,
+              id: user[0]._id,
+              project: user[0].project
+            }
           })
         })
         .catch(() =>
