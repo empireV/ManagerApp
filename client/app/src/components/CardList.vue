@@ -12,10 +12,12 @@
     </a>
   </header>
       <div class="container">
-        <draggable group="people">
-          <div v-for="e in cards" :key="e" class="item">
+        <draggable :delay="200" group="cards" v-model="cards" @start="drag=true" @end="drag=false">
+          <transition-group type="transition" name="flip-list">
+          <div v-for="e in cards" :key="e">
             <card :name="e"></card>
           </div>
+          </transition-group>
         </draggable>
       </div>
     </div>
@@ -33,10 +35,26 @@ export default {
   components: { Card, draggable },
   data: function() {
     return {
-      cards: [1, 2, 3, 4]
+      cards: [1, 2, 3, 4],
+      drag: false
+    }
+  },
+  computed: {
+    dragOptions() {
+      return {
+        animation: 0,
+        group: "description",
+        disabled: false,
+        ghostClass: "ghost"
+      };
     }
   },
   methods: {
   }
 }
 </script>
+<style>
+.flip-list-move {
+  transition: transform 0.5s;
+}
+</style>
