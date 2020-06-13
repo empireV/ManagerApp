@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { TaskBlock } from "./TaskBlock";
 import {title} from "../const/const";
 import './Main.scss';
+import {Redirect} from "react-router-dom";
 
 
 export class Main extends Component {

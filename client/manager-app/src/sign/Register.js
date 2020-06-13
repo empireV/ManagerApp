@@ -33,7 +33,7 @@ export class Register extends Component {
     render() {
         const { registered } = this.state
         if(this.state.registered === true) {
-            return <Redirect to="/main"/>;
+            return <Redirect to="/login"/>;
         }
         return (
             <div className='wrapper'>
