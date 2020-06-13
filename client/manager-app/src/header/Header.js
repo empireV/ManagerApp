@@ -10,12 +10,16 @@ export class Header extends Component {
 
     render() {
         const { name } = this.props
+        if(name === '')
+        {
+            return <Redirect to="/login"/>;
+        }
         return (
             <div className={`${CN} bg-primary d-flex`}>
                 <div className={`${CN}-user alert alert-primary col-4`}>
                     User: {name}
                 </div>
-                <Link to='/login'><button type='button' className={`${CN}-logout btn btn-secondary`} onClick=''>Log Out</button></Link>
+                <Link to='/login'><button type='button' className={`${CN}-logout btn btn-secondary`} onClick={this.logout}>Log Out</button></Link>
             </div>
         )
     }

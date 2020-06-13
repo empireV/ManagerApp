@@ -38,11 +38,8 @@ export default class App extends Component{
                                 <Header name={this.state.name}/>
                                 <Main/>
                             </Route>
-
                             <Redirect from="/" to="/login" exact/>
                             <Redirect from="*" to="/"/>
-
-
                         </Switch>
                     </Router>
                 </div>
