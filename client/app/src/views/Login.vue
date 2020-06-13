@@ -47,6 +47,7 @@ export default {
     async login () {
         try {
           await this.$store.dispatch('login', { name: this.name, password: this.password })
+          this.$router.push({ name: 'main' })
         } catch (e) {
           this.$buefy.toast.open({
             duration: 2000,

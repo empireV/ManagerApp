@@ -13,6 +13,7 @@ axios.defaults.baseURL = 'http://localhost:8081/'
 
 Vue.use(Buefy)
 
+
 new Vue({
   render: h => h(App),
   store,
