@@ -60,4 +60,11 @@ export default {
 .flip-list-move {
   transition: transform 0.5s;
 }
+.flip-list-enter-active, .flip-list-leave-active {
+  transition: all 0.5s;
+}
+.flip-list-enter, .flip-list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
 </style>
