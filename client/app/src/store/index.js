@@ -6,12 +6,21 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: () => {
+    let user = {
+      name: '',
+      project: undefined
+    }
+
+    try {
+      user = JSON.parse(localStorage.getItem('user'))
+    } catch (error) {
+      console.log(error)
+    }
+
+
     return {
       token: localStorage.getItem('token') || '',
-      user: localStorage.getItem('user') || {
-        name: '',
-        projectId: undefined
-      }
+      user
     }
   },
   mutations: {
@@ -20,7 +29,7 @@ export default new Vuex.Store({
       state.user = user
 
       localStorage.setItem('token', token)
-      localStorage.setItem('user', user)
+      localStorage.setItem('user', JSON.stringify(user))
     },
     logout (state) {
       state.user = {}
@@ -34,8 +43,9 @@ export default new Vuex.Store({
     async login(ctx, { name, password }) {
       try {
         const data = (await axios.post('/users/login', { name, password })).data
-        
+        console.log(data)
         localStorage.setItem('token', data.token)
+        localStorage.setItem('user', data.user)
         axios.defaults.headers.common.Authorization = data.token
 
         ctx.commit('authSuccess', { ...data })
@@ -65,6 +75,16 @@ export default new Vuex.Store({
       delete axios.defaults.headers.common.Authorization
 
       commit('logout')
+    },
+    async getTasks({ state }) {
+      try {
+        console.log(state.user.project)
+        const o = (await axios.get('/projects/' + state.user.project)).data
+        console.log(o)
+        return o
+      } catch (e) {
+        return []
+      }
     }
   }
 })
