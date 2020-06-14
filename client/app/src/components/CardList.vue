@@ -12,7 +12,7 @@
     </a>
   </header>
       <div class="container">
-        <draggable :delay="200" group="cards" v-model="cards" @start="drag=true" @end="drag=false">
+        <draggable :delay="200" :delayOnTouchOnly="true" group="cards" v-model="cards" @start="drag=true" @end="drag=false">
           <transition-group type="transition" name="flip-list">
           <div v-for="e in cards" :key="e">
             <card :name="e"></card>
