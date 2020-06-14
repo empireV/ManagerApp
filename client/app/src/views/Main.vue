@@ -22,7 +22,7 @@
     </b-navbar>
     <div class="hero is-fullheight">
       <div class="columns is-multiline">
-        <card-list v-for="(list, index) in cardLists" :key="index" :list="list" class="column"/>
+        <card-list v-for="(list, index) in cardLists" @submit-data="save" :key="index" :list="list" class="column"/>
       </div>
     </div>
   </div>

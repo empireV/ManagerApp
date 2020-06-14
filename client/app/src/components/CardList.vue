@@ -14,7 +14,7 @@
       <div class="container">
         <draggable :delay="200" :delayOnTouchOnly="true" group="cards" :list="list" @start="drag=true" @end="drag=false">
           <transition-group type="transition" name="flip-list">
-            <card v-for="(e, index) in list" :key="e.name" :task="e" v-on:remove-me="list.splice(index, 1)" ></card>
+            <card v-for="(e, index) in list" :key="e.name" :task="e" @submit-data="$emit('submit-data')" v-on:remove-me="list.splice(index, 1)" ></card>
           </transition-group>
         </draggable>
       </div>

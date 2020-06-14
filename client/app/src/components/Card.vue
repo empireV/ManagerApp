@@ -17,24 +17,32 @@
             </div>
             <div class="card-content">
                 <div class="content">
-                  <div v-if="!isEdit"  @dblclick="isEdit = true">
+                  <div>
                     {{ task.description }}
                   </div>
-                  <b-field v-else>
-                    <b-input v-model="task.description" maxlength="200" type="textarea"></b-input>
-                  </b-field>
                 </div>
             </div>
             <footer class="card-footer">
-                <a class="card-footer-item">Edit</a>
+                <a class="card-footer-item" @click="edit">Edit</a>
                 <a class="card-footer-item" @click="removeMe">Delete</a>
             </footer>
+
+            <b-modal :active.sync="isEdit"
+                 has-modal-card
+                 trap-focus
+                 :destroy-on-hide="false"
+                 aria-role="dialog"
+                 aria-modal>
+            <card-edit @submit-data="$emit('submit-data')" :task="this.task"></card-edit>
+            </b-modal>
     </b-collapse>
 </template>
 
 <script>
+import CardEdit from './CardEdit'
 export default {
   name: 'Card',
+  components: { CardEdit },
   props: {
     task: Object
   },
@@ -46,6 +54,9 @@ export default {
   methods: {
     removeMe() {
       this.$emit('remove-me')
+    },
+    edit() {
+      this.isEdit = true
     }
   }
 }
