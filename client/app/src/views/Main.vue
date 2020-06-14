@@ -22,7 +22,7 @@
     </b-navbar>
     <div class="hero is-fullheight">
       <div class="columns is-multiline">
-        <card-list v-for="(list, index) in cardLists" @submit-data="save" :key="index" :list="list" class="column"/>
+        <card-list :title="titles[index]" v-for="(list, index) in cardLists" @submit-data="save" :key="index" :list="list" class="column"/>
       </div>
     </div>
   </div>
@@ -37,7 +37,8 @@
     components: { CardList },
     data: function() {
       return {
-        cardLists: []
+        cardLists: [],
+        titles: ['Backlog','In progress','Blocked','Done']
       }
     },
     computed: {

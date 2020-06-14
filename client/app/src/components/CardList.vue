@@ -3,7 +3,7 @@
     <div class="card">
       <header class="card-header">
         <p class="card-header-title">
-          TITLE
+          {{title}}
         </p>
         <a href="#" class="card-header-icon" aria-label="more options">
       <span class="icon">
@@ -31,7 +31,8 @@
   export default {
     name: 'CardList',
     props: {
-      list: Array
+      list: Array,
+      title: String
     },
     components: { Card, draggable },
     data: function() {
