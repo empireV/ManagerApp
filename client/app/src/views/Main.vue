@@ -9,6 +9,9 @@
 
           <template slot="end">
             <b-navbar-item tag="div">
+              {{ user.name }}
+            </b-navbar-item>
+            <b-navbar-item tag="div">
               <div class="buttons">
                 <a class="button is-light" @click="logout">
                   Logout
@@ -18,19 +21,8 @@
           </template>
     </b-navbar>
     <div class="hero is-fullheight">
-      <div class="columns">
-        <div class="column">
-          <card-list/>
-        </div>
-       <div class="column">
-          <card-list/>
-        </div>
-        <div class="column">
-          <card-list/>
-        </div>
-        <div class="column">
-          <card-list/>
-        </div>
+      <div class="columns is-multiline">
+        <card-list v-for="(list, index) in cardLists" :key="index" :list="list" class="column"/>
       </div>
     </div>
   </div>
@@ -45,12 +37,34 @@ export default {
   components: { CardList },
   data: function() {
     return {
+      cardLists: []
     }
+  },
+  computed: {
+    user() {
+      return this.$store.state.user
+    }
+  }
+  ,
+  mounted () {
+    this.loadData()
   },
   methods: {
     async logout() {
       await this.$store.dispatch('logout')
       this.$router.push('/login')
+    },
+    async loadData() {
+      this.cardLists = await this.$store.dispatch('getTasks')
+    },
+    async save() {
+      console.log('SAVE')
+      await this.$store.dispatch('saveTasks', this.cardLists)
+    }
+  },
+  watch: {
+    cardLists: function() {
+      this.save()
     }
   }
 }

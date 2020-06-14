@@ -12,14 +12,15 @@
     </a>
   </header>
       <div class="container">
-        <draggable :delay="200" :delayOnTouchOnly="true" group="cards" v-model="cards" @start="drag=true" @end="drag=false">
+        <draggable :delay="200" :delayOnTouchOnly="true" group="cards" :list="list" @start="drag=true" @end="drag=false">
           <transition-group type="transition" name="flip-list">
-          <div v-for="e in cards" :key="e">
-            <card :name="e"></card>
-          </div>
+            <card v-for="(e, index) in list" :key="e.name" :task="e" v-on:remove-me="list.splice(index, 1)" ></card>
           </transition-group>
         </draggable>
       </div>
+      <footer class="card-footer">
+        <a href="#" class="card-footer-item" @click="add">Add</a>
+      </footer>
     </div>
   </section>
 </template>
@@ -30,12 +31,11 @@ import draggable from "vuedraggable";
 export default {
   name: 'CardList',
   props: {
-    taskList: Array
+    list: Array
   },
   components: { Card, draggable },
   data: function() {
     return {
-      cards: [1, 2, 3, 4],
       drag: false
     }
   },
@@ -50,6 +50,9 @@ export default {
     }
   },
   methods: {
+    add() {
+      this.list.push({name: Math.random().toString(36).substring(7) , description: 'Some description'})
+    }
   }
 }
 </script>

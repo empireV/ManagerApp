@@ -10,15 +10,22 @@ router.get('/:id', (req, res) => {
       return res.sendStatus(404)
     return res.status(200).json(doc)
   }).catch(e => {
-    res.sendStatus(500).json(e)
+    res.status(500).json(e)
   })
 })
 
 router.post('/:id', (req, res) => {
-  const project = Project.updateOne({ _id : req.params._id }, req.body).then(() => {
-    res.sendStatus(200).json(project)
+  Project.findOne({ _id : req.params.id }).exec().then((project) => {
+    if (!project)
+      throw Error('No such project')
+    console.log(req.body.taskLists)
+    project.taskLists = req.body.taskLists
+    project.save().then(() => {
+      res.status(200).end()
+    })
   }).catch(e => {
-    res.sendStatus(500).json(e)
+    console.log(e)
+    res.status(500).json(e)
   })
 });
 
@@ -27,7 +34,7 @@ router.delete('/:id', (req, res) => {
   .then(() => {
     return res.sendStatus(200)
   }).catch(e => {
-    res.sendStatus(500).json(e)
+    res.status(500).json(e)
   })
 })
 

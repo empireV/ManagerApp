@@ -79,11 +79,19 @@ export default new Vuex.Store({
     async getTasks({ state }) {
       try {
         console.log(state.user.project)
-        const o = (await axios.get('/projects/' + state.user.project)).data
-        console.log(o)
-        return o
+        const data = (await axios.get('/projects/' + state.user.project)).data
+        console.log(data)
+        return data.taskLists
       } catch (e) {
         return []
+      }
+    },
+    async saveTasks({ state }, taskLists) {
+      try {
+        await axios.post('/projects/' + state.user.project, { taskLists })
+      } catch (e) {
+        console.log(e)
+        return
       }
     }
   }

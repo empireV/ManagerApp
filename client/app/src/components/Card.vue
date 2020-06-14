@@ -7,7 +7,7 @@
                 role="button"
                 aria-controls="contentIdForA11y3">
                 <p class="card-header-title">
-                   {{ name }}
+                   {{ task.name }}
                 </p>
                 <a class="card-header-icon">
                     <b-icon
@@ -17,19 +17,17 @@
             </div>
             <div class="card-content">
                 <div class="content">
-                  <div v-if="!isEdit">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                    <a>#buefy</a>.
+                  <div v-if="!isEdit"  @dblclick="isEdit = true">
+                    {{ task.description }}
                   </div>
                   <b-field v-else>
-                    <b-input maxlength="200" type="textarea"></b-input>
+                    <b-input v-model="task.description" maxlength="200" type="textarea"></b-input>
                   </b-field>
                 </div>
             </div>
             <footer class="card-footer">
-                <a class="card-footer-item">Save</a>
-                <a class="card-footer-item" @click="startEdit">Edit</a>
-                <a class="card-footer-item">Delete</a>
+                <a class="card-footer-item">Edit</a>
+                <a class="card-footer-item" @click="removeMe">Delete</a>
             </footer>
     </b-collapse>
 </template>
@@ -38,8 +36,7 @@
 export default {
   name: 'Card',
   props: {
-    task: Object,
-    name: String
+    task: Object
   },
   data: function() {
     return {
@@ -47,8 +44,8 @@ export default {
     }
   },
   methods: {
-    startEdit () {
-      this.isEdit = !this.isEdit
+    removeMe() {
+      this.$emit('remove-me')
     }
   }
 }
